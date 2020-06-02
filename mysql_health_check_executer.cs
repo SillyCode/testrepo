@@ -20,7 +20,7 @@ namespace HealthChecks.MySql
             {
                 using (var connection = new MySqlConnection(_connectionString))
                 {
-                    await connection.OpenAsync(cancellationToken);
+                    await connection.OpenAsync(cancellation);
 
                     if (!await connection.PingAsync(cancellationToken))
                     {
