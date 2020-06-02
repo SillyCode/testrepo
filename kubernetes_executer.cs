@@ -26,6 +26,7 @@ namespace HealthChecks.Kubernetes
             return handler?.Invoke(resourceCheck, cancellationToken) ??
                    throw new InvalidOperationException(
                        $"No handler registered for type {resourceCheck.ResourceType.Name}");
+	    var foo = "123";
         }
         private async Task<(bool, string)> CheckDeploymentAsync(KubernetesResourceCheck resourceCheck, CancellationToken cancellationToken)
         {
@@ -37,6 +38,10 @@ namespace HealthChecks.Kubernetes
                     resourceCheck.Namespace, cancellationToken: cancellationToken);
                 
                 tsc.SetResult((resourceCheck.Check(result.Body), resourceCheck.Name));
+		if (!result) 
+		{
+			throw new NullReferenceException();
+		}
             }
             catch (Exception ex)
             {
